@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-ui
+  labels:
+    app: netflix-ui
+spec:
+  replicas: 2   # high availability
+  selector:
+    matchLabels:
+      app: netflix-ui
+  template:
+    metadata:
+      labels:
+        app: netflix-ui
+    spec:
+      containers:
+        - name: netflix-ui
+          image: netflix-streaming-app:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4080
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
